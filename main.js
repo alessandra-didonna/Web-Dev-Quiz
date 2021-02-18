@@ -108,20 +108,20 @@ function createBtnChoice() {
         choice[i].addEventListener("click", () => {
             if(choice[i].value == 0) {
                 questionArray = html;
-                progressbarReset();
                 answerReset();
+                progressbarReset();
                 init(index);
             }
             if(choice[i].value == 1) {
                 questionArray = css;
-                progressbarReset();
                 answerReset();
+                progressbarReset();
                 init(index);
             }
             if(choice[i].value == 2) {
                 questionArray = javascript;
-                progressbarReset();
                 answerReset();
+                progressbarReset();
                 init(index);
             }
         });
@@ -130,10 +130,9 @@ function createBtnChoice() {
 
 function init(index) {
     questionParagraph.innerHTML = questionArray[index].question;
-    /*if(questionArray[index].question == "How do you define a class?"){
-        let quizFinished = document.createElement("p");
-        quizFinished.appendChild(document.createTextNode("Quiz finito!"));
-        mainContainer.appendChild(quizFinished);
+
+    /*if(questionArray[index].question == questionArray[3].question){
+        quizFinished();
     }*/
 
     for(let i = 0; i < questionArray[index].answer.length; i++) {
@@ -172,19 +171,26 @@ function createButtonAnswer(index,i) {
         }
     })
 }
-
+//reset the answers when the typology of quiz is changed
 function answerReset() {
     while (containerQuest.hasChildNodes()) {
         containerQuest.removeChild(containerQuest.lastChild);
     }
 }
-
-function progressbarIncrement() {
-    progressScore = progressScore + 25;
-    progressBar.style.width = progressScore + "%";
-}
-
+//reset the progressbar width when the typology of quiz is changed
 function progressbarReset() {
     progressScore = 0;
     progressBar.style.width = 0;
 }
+//increment the progressbar score when the clicked answer is right
+function progressbarIncrement() {
+    progressScore = progressScore + 25;
+    progressBar.style.width = progressScore + "%";
+}
+//show a quiz end message 
+/*function quizFinished(messageQuizFinished) {
+    let messageQuizFinished = document.createElement("p");
+    messageQuizFinished.appendChild(document.createTextNode("Quiz finished!"));
+    mainContainer.appendChild(messageQuizFinished);
+}*/
+
