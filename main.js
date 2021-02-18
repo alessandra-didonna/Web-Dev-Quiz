@@ -75,6 +75,7 @@ let quiz = document.getElementById("quiz");
 let questionParagraph = document.getElementById("question");
 let containerQuest = document.getElementById("containerQuest");
 let progressBar = document.getElementById("progressBar");
+let progressBarContainer = document.getElementById("progressBarContainer");
 let labelQuiz = document.getElementById("labelQuiz");
 
 let index = 0;
@@ -82,6 +83,7 @@ let progressScore = 0;
 
 createBtnChoice();
 
+//create the html/css/javascript quiz choice buttons
 function createBtnChoice() {
     for(let i = 0; i < 3; i++) {
 
@@ -103,23 +105,26 @@ function createBtnChoice() {
     }
 
     for(let i = 0; i < choice.length; i++) {
-        choice[i].addEventListener("click", (e) => {
+        choice[i].addEventListener("click", () => {
             if(choice[i].value == 0) {
                 questionArray = html;
-                clearAnswer();
+                progressbarReset();
+                answerReset();
                 init(index);
             }
             if(choice[i].value == 1) {
                 questionArray = css;
-                clearAnswer();
+                progressbarReset();
+                answerReset();
                 init(index);
             }
             if(choice[i].value == 2) {
                 questionArray = javascript;
-                clearAnswer();
+                progressbarReset();
+                answerReset();
                 init(index);
             }
-        })
+        });
     }
 }
 
@@ -145,7 +150,7 @@ function init(index) {
     nextBtn.addEventListener("click", () => {
         if (index < questionArray.length - 1) {
             index++;
-            clearAnswer();
+            answerReset();
             init(index);
         }
     });
@@ -161,18 +166,25 @@ function createButtonAnswer(index,i) {
     btnAnswer.addEventListener("click", (e) => {
         if(e.target.value == questionArray[index].correct) {
             e.target.classList.add("right", "right:hover");
-            progressScore = progressScore + 25;
-            progressBar.style.width = progressScore + "%";
+            progressbarIncrement();
         } else {
             e.target.classList.add("wrong", "wrong:hover");
         }
     })
 }
 
-function clearAnswer() {
+function answerReset() {
     while (containerQuest.hasChildNodes()) {
         containerQuest.removeChild(containerQuest.lastChild);
     }
 }
 
+function progressbarIncrement() {
+    progressScore = progressScore + 25;
+    progressBar.style.width = progressScore + "%";
+}
 
+function progressbarReset() {
+    progressScore = 0;
+    progressBar.style.width = 0;
+}
