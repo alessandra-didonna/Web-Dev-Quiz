@@ -188,7 +188,7 @@ function progressbarIncrement() {
     progressBar.style.width = progressScore + "%";
 }
 //show a quiz end message 
-/*function quizFinished(messageQuizFinished) {
+/*function quizFinished() {
     let messageQuizFinished = document.createElement("p");
     messageQuizFinished.appendChild(document.createTextNode("Quiz finished!"));
     mainContainer.appendChild(messageQuizFinished);
