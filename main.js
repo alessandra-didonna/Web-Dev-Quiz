@@ -77,63 +77,59 @@ let containerQuest = document.getElementById("containerQuest");
 let progressBar = document.getElementById("progressBar");
 let progressBarContainer = document.getElementById("progressBarContainer");
 let labelQuiz = document.getElementById("labelQuiz");
+let endQuizMessage = document.getElementById("endQuizMessage");
 
 let index = 0;
 let progressScore = 0;
 
-createBtnChoice();
-
 //create the html/css/javascript quiz choice buttons
-function createBtnChoice() {
-    for(let i = 0; i < 3; i++) {
+for(let i = 0; i < 3; i++) {
 
-        let choice = document.createElement('button');
-        choice.setAttribute("class", "btn argumentBtn btn-grad");
-        choice.setAttribute("id", "choice");
-        choice.setAttribute("value", i);
-        argumentContainer.appendChild(choice);
-        
-        if(choice.value == 0) {
-            choice.appendChild(document.createTextNode("html"));
-        }
-        if(choice.value == 1) {
-            choice.appendChild(document.createTextNode("css"));
-        }
-        if(choice.value == 2) {
-            choice.appendChild(document.createTextNode("javascript"));
-        }
+    let choice = document.createElement('button');
+    choice.setAttribute("class", "btn argumentBtn btn-grad");
+    choice.setAttribute("id", "choice");
+    choice.setAttribute("value", i);
+    argumentContainer.appendChild(choice);
+    
+    if(choice.value == 0) {
+        choice.appendChild(document.createTextNode("html"));
     }
-
-    for(let i = 0; i < choice.length; i++) {
-        choice[i].addEventListener("click", () => {
-            if(choice[i].value == 0) {
-                questionArray = html;
-                answerReset();
-                progressbarReset();
-                init(index);
-            }
-            if(choice[i].value == 1) {
-                questionArray = css;
-                answerReset();
-                progressbarReset();
-                init(index);
-            }
-            if(choice[i].value == 2) {
-                questionArray = javascript;
-                answerReset();
-                progressbarReset();
-                init(index);
-            }
-        });
+    if(choice.value == 1) {
+        choice.appendChild(document.createTextNode("css"));
+    }
+    if(choice.value == 2) {
+        choice.appendChild(document.createTextNode("javascript"));
     }
 }
 
-function init(index) {
-    questionParagraph.innerHTML = questionArray[index].question;
+for(let i = 0; i < choice.length; i++) {
+    choice[i].addEventListener("click", () => {
+        if(choice[i].value == 0) {
+            questionArray = html;
+            progressBar.style.width = 0; //reset the progressbar width when the typology of quiz is changed
+            endQuizMessage.classList.remove("d-block");
+            answerReset();
+            init(index);
+        }
+        if(choice[i].value == 1) {
+            questionArray = css;
+            progressBar.style.width = 0;
+            endQuizMessage.classList.remove("d-block");
+            answerReset();
+            init(index);
+        }
+        if(choice[i].value == 2) {
+            questionArray = javascript;
+            progressBar.style.width = 0;
+            endQuizMessage.classList.remove("d-block");
+            answerReset();
+            init(index);
+        }
+    });
+}
 
-    /*if(questionArray[index].question == questionArray[3].question){
-        quizFinished();
-    }*/
+function init(index) {
+    questionParagraph.innerHTML = questionArray[index].question; //questions printed on page
 
     for(let i = 0; i < questionArray[index].answer.length; i++) {
         createButtonAnswer(index,i);
@@ -143,7 +139,6 @@ function init(index) {
     let nextBtn = document.createElement("button");
     nextBtn.setAttribute("class", "btn btn-warning nextBtn");
     nextBtn.appendChild(document.createTextNode("Next"));
-
     containerQuest.appendChild(nextBtn);
 
     nextBtn.addEventListener("click", () => {
@@ -151,10 +146,12 @@ function init(index) {
             index++;
             answerReset();
             init(index);
+        } else { //show an end quiz message
+            endQuizMessage.classList.add("d-block");
         }
     });
 }
-
+//create buttons for the answers
 function createButtonAnswer(index,i) {
     let btnAnswer = document.createElement('button');
     btnAnswer.setAttribute("class", "btn btnAnswer mb-2 border");
@@ -177,20 +174,8 @@ function answerReset() {
         containerQuest.removeChild(containerQuest.lastChild);
     }
 }
-//reset the progressbar width when the typology of quiz is changed
-function progressbarReset() {
-    progressScore = 0;
-    progressBar.style.width = 0;
-}
 //increment the progressbar score when the clicked answer is right
 function progressbarIncrement() {
     progressScore = progressScore + 25;
     progressBar.style.width = progressScore + "%";
 }
-//show a quiz end message 
-/*function quizFinished(messageQuizFinished) {
-    let messageQuizFinished = document.createElement("p");
-    messageQuizFinished.appendChild(document.createTextNode("Quiz finished!"));
-    mainContainer.appendChild(messageQuizFinished);
-}*/
-
