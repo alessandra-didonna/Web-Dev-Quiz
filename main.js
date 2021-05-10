@@ -1,6 +1,6 @@
 let html = [
     {
-        question: "Which tag you use to insert a dominant content?",
+        question: "Which tag do you use to insert a dominant content?",
         answer: ['<main/>', '<body/>'],
         correct: 0
     },
@@ -10,7 +10,7 @@ let html = [
         correct: 0
     },
     {
-        question: "Where we can add external javascript in html?",
+        question: "Where can we add external javascript in html?",
         answer: ['<body/>', 'both <head/> or <body/>'],
         correct: 1
     },
@@ -38,7 +38,7 @@ let css = [
         correct: 1
     },
     {
-        question: "What rem refer to?",
+        question: "What do rem refer to?",
         answer: ['Relative to font-size of the root element', 'Relative to the parent element'],
         correct: 0
     }
